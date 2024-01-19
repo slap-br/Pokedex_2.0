@@ -1,35 +1,274 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
 
 * {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    box-sizing: border-box;
-  }
-
-body{
-    width: 800px;
-    font: bold;
-    font-weight: 400;
-    margin: auto;
-    text-align: center;
-    padding: 10px;
-    font-size: 18px;
-    border: 1px solid red;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
 }
 
-.pokelist_button{
-  background-color: aqua;
-  padding: 10px;
-  padding: 16px 32px;
-  text-align: center;
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* header */
+header {
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo img {
+  max-width: 100%;
+  height: auto;
+}
+
+.logo {
+  font-size: 1.5em;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin-right: 10px; /* Reduzindo a margem entre o menu e o campo de busca */
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav a {
   text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
+  color: white;
 }
 
-ul{
+/* MODAL CSS */
+
+#modal-container {
+  display: none;
+}
+
+#modal-container.is-visible {
+  position: fixed;
+  padding: 20px;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+
+  /* to show it above other content */
+  z-index: 999;
+
+  /* to allow scrolling if the screen is not high enough*/
+  overflow: auto;
+
+  /* this is used to center the modal */
+  display: grid;
+  text-align: center;
+}
+
+.modal {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background: #fffdef;
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  position: relative;
+}
+
+.modal img {
+  width: 250px;
+  max-height: auto;
+  object-fit: cover;
+  margin-top: 25px;
+}
+
+.modal h1 {
+}
+
+.modal .info-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.modal .info-item {
+  width: 200px;
+  height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #62d5b4;
+  padding: 15px;
+  border-radius: 15px 15px 0px 0px;
+}
+
+/* Cores específicas para cada item */
+.modal .info-item:nth-child(1) {
+  gap: 0;
+  margin: 0;
+  background-color: #f6bd20;
+}
+
+.modal .info-item:nth-child(2) {
+  gap: 0;
+  margin: 0;
+  background-color: #ea3d31;
+}
+
+.modal .info-item:nth-child(3) {
+  gap: 0;
+  margin: 0;
+  background-color: #75b7f9;
+}
+
+.modal .info-item.last {
+  gap: 0;
+  margin: 0;
+  align-items: flex-start;
+}
+
+.modal .info-item {
+  gap: 0;
+  margin: 0;
+  text-align: center;
+}
+
+.modal .info-item strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  -webkit-appearance: none;
+  border: 0;
+  color: gray;
+  width: 24px;
+  height: 24px;
+  background: none;
+}
+
+.modal .info-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+}
+
+/* Pokemon Button */
+.pokebutton {
+  background-color: rgb(0, 109, 155);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 15px;
+}
+
+button.pokebutton {
+  color: aliceblue;
+  font-size: larger;
+  margin-top: 10px;
+}
+
+ul {
   list-style: none;
 }
 
+.hidden {
+  display: none;
+}
+
+/* Grid PokemonList */
+.pokedex-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 10px;
+  text-align: center;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+.pokemon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pokedex-list button {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.pokemon-name {
+  margin-top: 15px;
+}
+
+.pokemon-image {
+  max-height: 250px;
+  height: auto;
+  object-fit: cover;
+  text-align: center;
+  display: block; /* Para centralizar horizontalmente */
+}
+/* Footer */
+
+footer {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  text-align: center;
+}
+
+/* Define 1 coluna para telas pequenas */
+@media screen and (max-width: 600px) {
+  .pokedex-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Define 2 colunas para telas médias */
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  .pokedex-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Define 3 colunas para telas maiores */
+@media screen and (min-width: 901px) {
+  .pokedex-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.pokedex-grid button {
+  width: 100%;
+  text-align: center;
+}

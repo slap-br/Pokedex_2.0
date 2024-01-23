@@ -11,7 +11,7 @@ let pokemonRepository = (function () {
 
     let modal = document.createElement("div");
     modal.classList.add("modal");
-    // add o novo conteudo
+    // add the new content to the modal
     let closeButtonElement = document.createElement("button");
     closeButtonElement.classList.add("modal-close");
     closeButtonElement.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
@@ -142,7 +142,7 @@ let pokemonRepository = (function () {
     let listItem = document.createElement("div");
     listItem.classList.add("pokebutton");
 
-    // Cria o elemento de botão
+    // Creates the button element
     let button = createButtonItem(pokemon);
 
     listItem.appendChild(button);
@@ -153,14 +153,14 @@ let pokemonRepository = (function () {
 
     // Load the details of the Pokémon
     loadDetails(pokemon).then(function () {
-      // Cria um elemento de imagem e define sua fonte
+      //create an element and define its src
       let pokemonImage = document.createElement("img");
       pokemonImage.src = pokemon.imageUrl;
 
-      // Adiciona a imagem ao item da lista
+      // Add image to the item of the list
       listItem.appendChild(pokemonImage);
 
-      // Adiciona o evento de clique à imagem
+      // Add event click to the pokemon image
       listItem.addEventListener("click", function () {
         showDetails(pokemon);
       });
@@ -199,7 +199,6 @@ let pokemonRepository = (function () {
             detailsUrl: item.url,
           };
           add(pokemon);
-          // console.log(pokemon); remover depois
         });
       })
       .catch(function (e) {
@@ -230,7 +229,7 @@ let pokemonRepository = (function () {
       });
   }
 
-  //Show detailed infos of pokemons when there's a event
+  //Show detailed infos of pokemons when there's an event
   function showDetails(pokemon) {
     currentPokemonIndex = pokemonRepository.getAll().indexOf(pokemon);
     loadDetails(pokemon).then(function () {
@@ -247,12 +246,12 @@ let pokemonRepository = (function () {
       currentPokemonIndex !== undefined
     ) {
       if (e.key === "ArrowLeft") {
-        // Navega para o Pokémon anterior
+        // Nav to the previous object
         if (currentPokemonIndex > 0) {
           showDetails(pokemonRepository.getAll()[currentPokemonIndex - 1]);
         }
       } else if (e.key === "ArrowRight") {
-        // Navega para o próximo Pokémon
+        // Nav to the next object
         if (currentPokemonIndex < pokemonRepository.getAll().length - 1) {
           showDetails(pokemonRepository.getAll()[currentPokemonIndex + 1]);
         }

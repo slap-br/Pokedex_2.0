@@ -124,7 +124,7 @@ nav a {
   border-radius: 15px 15px 0px 0px;
 }
 
-/* Cores específicas para cada item */
+/* Colors for each item*/
 .modal .info-item:nth-child(1) {
   gap: 0;
   margin: 0;
@@ -185,7 +185,7 @@ nav a {
 
 button.pokebutton {
   color: aliceblue;
-  font-size: larger; /* Adiciona estilo de cursor pointer para indicar que é clicável */
+  font-size: larger; /* when clickable displays a finger point */
 }
 
 ul {
@@ -238,21 +238,21 @@ footer {
   text-align: center;
 }
 
-/* Define 1 coluna para telas pequenas */
+/* Defines 1 column to small screens */
 @media screen and (max-width: 600px) {
   .pokedex-grid {
     grid-template-columns: 1fr;
   }
 }
 
-/* Define 2 colunas para telas médias */
+/* Defines 2 column to small screens */
 @media screen and (min-width: 601px) and (max-width: 900px) {
   .pokedex-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Define 3 colunas para telas maiores */
+/* Defines 3 column to small screens */
 @media screen and (min-width: 901px) {
   .pokedex-grid {
     grid-template-columns: repeat(4, 1fr);

@@ -261,31 +261,43 @@ let pokemonRepository = (function () {
         if (e.key === "ArrowLeft") {
           // Navega para o objeto anterior
           if (currentPokemonIndex > 0) {
-            showDetails(pokemonRepository.getAll()[currentPokemonIndex - 1]);
+            currentPokemonIndex--;
+            showDetails(pokemonRepository.getAll()[currentPokemonIndex]);
           }
         } else if (e.key === "ArrowRight") {
           // Navega para o próximo objeto
           if (currentPokemonIndex < pokemonRepository.getAll().length - 1) {
-            showDetails(pokemonRepository.getAll()[currentPokemonIndex + 1]);
+            currentPokemonIndex++;
+            showDetails(pokemonRepository.getAll()[currentPokemonIndex]);
           }
         }
       } else if (e.type === "click") {
         // Verifica cliques do mouse
-        if ($(e.target).hasClass("arrow-left")) {
+        let target = $(e.target);
+        if (
+          target.hasClass("arrow-left") ||
+          target.closest(".arrow-left").length
+        ) {
           // Navega para o objeto anterior
           if (currentPokemonIndex > 0) {
-            showDetails(pokemonRepository.getAll()[currentPokemonIndex - 1]);
+            currentPokemonIndex--;
+            showDetails(pokemonRepository.getAll()[currentPokemonIndex]);
           }
-        } else if ($(e.target).hasClass("arrow-right")) {
+        } else if (
+          target.hasClass("arrow-right") ||
+          target.closest(".arrow-right").length
+        ) {
           // Navega para o próximo objeto
           if (currentPokemonIndex < pokemonRepository.getAll().length - 1) {
-            showDetails(pokemonRepository.getAll()[currentPokemonIndex + 1]);
+            currentPokemonIndex++;
+            showDetails(pokemonRepository.getAll()[currentPokemonIndex]);
           }
         }
       }
     }
   }
 
+  $("#modal-container").on("click", handleArrowNavigation);
   window.addEventListener("keydown", handleArrowNavigation);
 
   return {

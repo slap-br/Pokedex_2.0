@@ -92,14 +92,30 @@ nav a {
   position: relative;
 }
 
+.imgNav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.arrow-left,
+.arrow-right {
+  flex: 0 0 40px;
+  text-align: center;
+}
+
+.imgNav-item {
+  flex: 1;
+  text-align: center;
+}
+
 .modal img {
-  width: 250px;
+  width: 450px;
   max-height: auto;
   object-fit: cover;
   margin-top: 25px;
-}
-
-.modal h1 {
 }
 
 .modal .info-container {
@@ -162,13 +178,13 @@ nav a {
 
 .modal-close {
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 10px;
+  right: 10px;
   -webkit-appearance: none;
   border: 0;
-  color: gray;
-  width: 24px;
-  height: 24px;
+  color: black;
+  width: 35px;
+  height: 35px;
   background: none;
 }
 

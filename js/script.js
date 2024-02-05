@@ -3,73 +3,88 @@ let pokemonRepository = (function () {
   let apiUrl = "https://pokeapi.co/api/v2/pokemon/?limit=150";
   let currentPokemonIndex;
 
+  //DOM ELEMENTS
+  let modalContainer = $("#modal-container");
+  const searchInput = $("#searchInput");
+  const pokedexList = $(".pokedex-list");
+  const loadingMsg = $(".loadingMsg");
+  const showModalButton = $("#show-modal");
+  const searchButton = $("#searchButton");
+
   //ShowModal Function
   function showModal(pokemon) {
-    let modalContainer = $("#modal-container");
+    //creates and then empty a modal container
     modalContainer.empty();
 
+    //Style the modal
     let modal = $("<div>").addClass("modal");
     let closeButtonElement = $("<button>")
       .addClass("modal-close")
-      .html('<i class="fa-solid fa-xmark"></i>');
+      .html($("<i>").addClass("fa-solid fa-xmark"));
     closeButtonElement.on("click", hideModal);
 
+    //Add the pokemon name to the modal
     let pokemonTitle = $("<h1>").text(capitalizeFirstLetter(pokemon.name));
-
+    //Add the visual navigation arrows to the modal
     let pokeImgAndNavArrowsContainer = $("<div>").addClass("imgNav-container");
     let leftArrowNav = $("<p>")
       .addClass("imgNav-item arrow-left")
-      .html(`<i class="fa-solid fa-chevron-left"></i>`);
-
+      .html($("<i>").addClass("fa-solid fa-chevron-left"));
+    //add the pokemon image to the center of the modal
     let pokemonImage = $("<img>")
       .addClass("pokemon-image imgNav-item")
       .attr("src", pokemon.imageUrl);
 
     let rightArrowNav = $("<p>")
       .addClass("imgNav-item arrow-right")
-      .html(`<i class="fa-solid fa-chevron-right"></i>`);
+      .html($("<i>").addClass("fa-solid fa-chevron-right"));
 
     pokeImgAndNavArrowsContainer.append(
       leftArrowNav,
       pokemonImage,
       rightArrowNav
     );
-
+    //creates a container with detailed infos to create a grid
     let infoContainer = $("<div>").addClass("info-container");
 
-    let pokemonHeight = $("<p>")
-      .addClass("info-item")
-      .html(`<i class="fa-solid fa-ruler"></i> <br> ${pokemon.height * 10} cm`);
-
-    let pokemonWeight = $("<p>")
-      .addClass("info-item")
-      .html(
-        `<i class="fa-solid fa-weight-hanging"></i> <br> ${
-          pokemon.weight / 10
-        } kg`
-      );
-
-    let pokemonTypes = $("<p>")
-      .addClass("info-item")
-      .html(
-        `<i class="fa-solid fa-star"></i> <br> ${pokemon.types
-          .map((type) => type.type.name)
-          .join(" <br> ")}`
-      );
-    let allAbilities = $("<p>")
-      .addClass("info-item")
-      .html(
-        `<i class="fa-solid fa-circle-plus"></i> <br> ${pokemon.abilities
-          .map((ability) => ability.ability.name)
-          .join(" <br> ")}`
-      );
-
-    infoContainer.append(
-      pokemonHeight,
-      pokemonWeight,
-      pokemonTypes,
-      allAbilities
+    let pokemonHeight = $("<p>").addClass("info-item");
+    let heightIcon = $("<i>").addClass("fa-solid fa-ruler");
+    let HeightLineBreak = $("<br>");
+    pokemonHeight.append(
+      heightIcon,
+      HeightLineBreak,
+      `${pokemon.height * 10} cm`
     );
+
+    let pokemonWeight = $("<p>").addClass("info-item");
+    let weightIcon = $("<i>").addClass("fa-solid fa-weight-hanging");
+    let weightLineBreak = $("<br>");
+    pokemonWeight.append(
+      weightIcon,
+      weightLineBreak,
+      `${pokemon.weight / 10} kg`
+    );
+
+    let pokemonTypes = $("<p>").addClass("info-item");
+    let typeIcon = $("<i>").addClass("fa-solid fa-star");
+    let typeLineBreak = $("<br>");
+
+    pokemonTypes.append(
+      typeIcon,
+      typeLineBreak,
+      pokemon.types.map((type) => type.type.name).join(" <br> ")
+    );
+
+    let abilities = $("<p>").addClass("info-item");
+    let skillIcon = $("<i>").addClass("fa-solid fa-circle-plus");
+    let skillLineBreak = $("<br>");
+    abilities.append(
+      skillIcon,
+      skillLineBreak,
+      pokemon.abilities.map((ability) => ability.ability.name).join(" <br> ")
+    );
+
+    infoContainer.append(pokemonHeight, pokemonWeight, pokemonTypes, abilities);
 
     modal.append(
       closeButtonElement,
@@ -88,7 +103,6 @@ let pokemonRepository = (function () {
   }
 
   function hideModal() {
-    let modalContainer = $("#modal-container");
     modalContainer.removeClass("is-visible");
   }
 
@@ -99,7 +113,7 @@ let pokemonRepository = (function () {
     }
   });
 
-  document.querySelector("#show-modal").addEventListener("click", () => {
+  showModalButton.on("click", () => {
     showModal(pokemon);
   });
 
@@ -110,10 +124,9 @@ let pokemonRepository = (function () {
 
   // Função de pesquisa
   function searchPokemon() {
-    // Obtenha o valor de pesquisa inserido pelo usuário e converta para minúsculas
-    let searchTerm = $("#searchInput").val().toLowerCase();
-
-    // Filtra a lista de Pokémon com base no termo de pesquisa
+    // convert the result from the user to lowercase
+    let searchTerm = searchInput.val().toLowerCase();
+    //filter the list based on the search terms
     let filteredList = pokemonRepository.getAll().filter(function (pokemon) {
       return (
         pokemon.name.toLowerCase().includes(searchTerm) ||
@@ -123,36 +136,29 @@ let pokemonRepository = (function () {
       );
     });
 
-    // Limpa a lista atual de Pokémon exibidos
-    $(".pokedex-list").empty();
+    // cleans the list
+    pokedexList.empty();
 
-    // Adiciona os itens filtrados à lista
+    // add the searched pokemons to the list
     filteredList.forEach(function (pokemon) {
       pokemonRepository.addListItem(pokemon);
     });
   }
 
   // Adicione um ouvinte de evento para o botão de pesquisa
-  $("#searchButton").on("click", searchPokemon);
-
-  // Adicione um ouvinte de evento para a tecla de pressionamento no campo de pesquisa
-  $("#searchInput").on("keydown", function (e) {
-    if (e.key === "Enter") {
-      searchPokemon();
-    }
-  });
+  searchButton.on("click", searchPokemon);
 
   //Show loading msg
   function showLoadingMsg() {
-    let loadingMsg = $("<div>")
+    let loadingMsgElement = $("<div>")
       .text("loading content...")
       .addClass("loadingMsg");
-    $("body").append(loadingMsg);
+    $("body").append(loadingMsgElement);
   }
 
   //Hide loading msg
   function hideLoadedMsg() {
-    let loadingMsg = $(".loadingMsg");
+    loadingMsg;
     if (loadingMsg.length) {
       loadingMsg.remove();
     }
@@ -211,7 +217,7 @@ let pokemonRepository = (function () {
     });
   }
 
-  //Creates a button for addListItem Function Above
+  //Creates a button for addListItem Function
   function createButtonItem(pokemon) {
     let button = $("<button>")
       .text(capitalizeFirstLetter(pokemon.name))
@@ -220,57 +226,44 @@ let pokemonRepository = (function () {
     return button;
   }
 
-  //Event listener button,
-  // function addEventListenerToButtons(button, pokemon) {
-  //   button.on("click", function () {
-  //     showDetails(pokemon);
-  //   });
-  // }
-
-  //Fetch and API, loadList() and add infos
-
-  function loadList() {
+  //Load the objects from the API, adding the objects to the add function, and with an ASYNC lines
+  async function loadList() {
     showLoadingMsg();
-    return fetch(apiUrl)
-      .then(function (response) {
-        hideLoadedMsg();
-        return response.json();
-      })
-      .then(function (json) {
-        json.results.forEach(function (item) {
-          let pokemon = {
-            name: item.name,
-            detailsUrl: item.url,
-          };
-          add(pokemon);
-        });
-      })
-      .catch(function (e) {
-        hideLoadedMsg();
-        console.log(e);
+    try {
+      const response = await fetch(apiUrl);
+      const json = await response.json();
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url,
+        };
+        add(pokemon);
       });
+    } catch (e) {
+      hideLoadedMsg();
+      console.log(e);
+    } finally {
+      hideLoadedMsg();
+    }
   }
-
-  function loadDetails(item) {
+  //Load all the details required for the user in the app from the API
+  async function loadDetails(item) {
     let url = item.detailsUrl;
-    return fetch(url)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (details) {
-        item.name = details.name;
-        item.imageUrl = details.sprites.front_default;
-        item.backImageUrl = details.sprites.back_default;
-        item.height = details.height;
-        item.weight = details.weight;
-        item.types = details.types;
-        item.abilities = details.abilities;
-        return item;
-      })
-      .catch(function (e) {
-        hideLoadedMsg();
-        console.log(e);
-      });
+    try {
+      const response = await fetch(url);
+      const details = await response.json();
+      item.name = details.name;
+      item.imageUrl = details.sprites.front_default;
+      item.backImageUrl = details.sprites.back_default;
+      item.height = details.height;
+      item.weight = details.weight;
+      item.types = details.types;
+      item.abilities = details.abilities;
+      return item;
+    } catch (e) {
+      hideLoadedMsg();
+      console.log(e);
+    }
   }
 
   //Show detailed infos of pokemons when there's an event

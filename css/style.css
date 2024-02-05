@@ -171,10 +171,6 @@ header {
   width: 100%;
 }
 
-.show-modal {
-  display: none !important;
-}
-
 /* Pokemon Button */
 .pokebutton {
   background-color: rgb(0, 109, 155);

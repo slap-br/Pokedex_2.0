@@ -108,6 +108,40 @@ let pokemonRepository = (function () {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  // Função de pesquisa
+  function searchPokemon() {
+    // Obtenha o valor de pesquisa inserido pelo usuário e converta para minúsculas
+    let searchTerm = $("#searchInput").val().toLowerCase();
+
+    // Filtra a lista de Pokémon com base no termo de pesquisa
+    let filteredList = pokemonRepository.getAll().filter(function (pokemon) {
+      return (
+        pokemon.name.toLowerCase().includes(searchTerm) ||
+        pokemon.types.some((type) =>
+          type.type.name.toLowerCase().includes(searchTerm)
+        )
+      );
+    });
+
+    // Limpa a lista atual de Pokémon exibidos
+    $(".pokedex-list").empty();
+
+    // Adiciona os itens filtrados à lista
+    filteredList.forEach(function (pokemon) {
+      pokemonRepository.addListItem(pokemon);
+    });
+  }
+
+  // Adicione um ouvinte de evento para o botão de pesquisa
+  $("#searchButton").on("click", searchPokemon);
+
+  // Adicione um ouvinte de evento para a tecla de pressionamento no campo de pesquisa
+  $("#searchInput").on("keydown", function (e) {
+    if (e.key === "Enter") {
+      searchPokemon();
+    }
+  });
+
   //Show loading msg
   function showLoadingMsg() {
     let loadingMsg = $("<div>")
@@ -154,15 +188,14 @@ let pokemonRepository = (function () {
   // //Add infos to the list of item
   function addListItem(pokemon) {
     let pokemonList = $(".pokedex-list");
+    let col = $("<div>").addClass("btn shadow col-12 col-md-3 col-lg-2 mx-2");
     let listItem = $("<div>").addClass("pokebutton");
     // Creates the button element
     let button = createButtonItem(pokemon);
 
     listItem.append(button);
+    col.append(listItem);
     pokemonList.append(listItem);
-
-    // Adds event listener to the button
-    addEventListenerToButtons(button, pokemon);
 
     // Load the details of the Pokémon
     loadDetails(pokemon).then(function () {
@@ -170,11 +203,11 @@ let pokemonRepository = (function () {
       let pokemonImage = $("<img>").attr("src", pokemon.imageUrl);
       // Add image to the item of the list
       listItem.prepend(pokemonImage);
+    });
 
-      // Add event click to the pokemon image
-      listItem.on("click", function () {
-        showDetails(pokemon);
-      });
+    // Adds event listener to the entire listItem
+    listItem.on("click", function () {
+      showDetails(pokemon);
     });
   }
 
@@ -188,11 +221,11 @@ let pokemonRepository = (function () {
   }
 
   //Event listener button,
-  function addEventListenerToButtons(button, pokemon) {
-    button.on("click", function () {
-      showDetails(pokemon);
-    });
-  }
+  // function addEventListenerToButtons(button, pokemon) {
+  //   button.on("click", function () {
+  //     showDetails(pokemon);
+  //   });
+  // }
 
   //Fetch and API, loadList() and add infos
 
@@ -272,13 +305,13 @@ let pokemonRepository = (function () {
           }
         }
       } else if (e.type === "click") {
-        // Verifica cliques do mouse
+        // check for mouse clicks
         let target = $(e.target);
         if (
           target.hasClass("arrow-left") ||
           target.closest(".arrow-left").length
         ) {
-          // Navega para o objeto anterior
+          // Navigate for the previous object
           if (currentPokemonIndex > 0) {
             currentPokemonIndex--;
             showDetails(pokemonRepository.getAll()[currentPokemonIndex]);
@@ -287,7 +320,7 @@ let pokemonRepository = (function () {
           target.hasClass("arrow-right") ||
           target.closest(".arrow-right").length
         ) {
-          // Navega para o próximo objeto
+          // Navigate for the next object
           if (currentPokemonIndex < pokemonRepository.getAll().length - 1) {
             currentPokemonIndex++;
             showDetails(pokemonRepository.getAll()[currentPokemonIndex]);

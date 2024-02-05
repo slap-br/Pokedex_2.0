@@ -10,45 +10,17 @@
 body {
   margin: 0;
   min-height: 100vh;
+  background-color: #f6bd20;
 }
 
 /* header */
 header {
-  background-color: #333;
   color: white;
   padding: 10px 0;
 }
 
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.logo img {
-  max-width: 100%;
-  height: auto;
-}
-
-.logo {
-  font-size: 1.5em;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  margin-right: 10px; /* Reduzindo a margem entre o menu e o campo de busca */
-}
-
-nav ul li {
-  margin-right: 20px;
-}
-
-nav a {
-  text-decoration: none;
-  color: white;
+.navbar-brand {
+  margin-left: 20%;
 }
 
 /* MODAL CSS */
@@ -86,10 +58,13 @@ nav a {
   justify-content: center;
   box-sizing: border-box;
   background: #fffdef;
-  width: 100%;
-  max-width: 500px;
+  width: 500px;
+  height: 410px;
   text-align: center;
-  position: relative;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .imgNav-container {
@@ -121,7 +96,7 @@ nav a {
 .modal .info-container {
   display: flex;
   flex-direction: row;
-  margin-top: 50px;
+  margin-top: 30px;
   align-items: center;
   justify-content: space-around;
   width: 100%;
@@ -130,7 +105,7 @@ nav a {
 
 .modal .info-item {
   width: 200px;
-  height: 130px;
+  height: 170px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -180,7 +155,6 @@ nav a {
   position: absolute;
   top: 10px;
   right: 10px;
-  -webkit-appearance: none;
   border: 0;
   color: black;
   width: 35px;
@@ -195,6 +169,10 @@ nav a {
   align-items: center;
   justify-content: space-around;
   width: 100%;
+}
+
+.show-modal {
+  display: none !important;
 }
 
 /* Pokemon Button */
@@ -224,10 +202,10 @@ ul {
 .pokedex-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 10px;
+  gap: 15px;
   text-align: center;
   max-width: 1200px;
-  margin: 20px auto;
+  margin: 50px auto 50px;
 }
 
 .pokemon-item {
@@ -242,48 +220,19 @@ ul {
   box-sizing: border-box;
 }
 
-.pokemon-name {
-  margin-top: 15px;
-}
-
 .pokemon-image {
   max-height: 250px;
   height: auto;
   object-fit: cover;
   text-align: center;
-  display: block; /* Para centralizar horizontalmente */
-}
-/* Footer */
-
-footer {
-  background-color: #333;
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-
-/* Define 1 coluna para telas pequenas */
-@media screen and (max-width: 600px) {
-  .pokedex-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* Define 2 colunas para telas médias */
-@media screen and (min-width: 601px) and (max-width: 900px) {
-  .pokedex-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Define 3 colunas para telas maiores */
-@media screen and (min-width: 901px) {
-  .pokedex-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  display: block; /* landscape center */
 }
 
 .pokedex-grid button {
   width: 100%;
   text-align: center;
+}
+
+.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }

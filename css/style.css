@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
 
+:root {
+  --btn_gradient_1: linear-gradient(to right, #75b7f9, #4681bc);
+  --btn_gradient_2: linear-gradient(to right, #75f9b2, #21da6b);
+  --btn_gradient_3: linear-gradient(to right, #ea6f67, #df362b);
+  --bordercolor1: #75b7f9;
+  --bordercolor2: #77f175;
+  --bordercolor3: #ff8383;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +19,8 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #f6bd20;
+  padding: 20px;
+  background-color: rgb(216, 216, 216);
 }
 
 /* header */
@@ -165,12 +175,21 @@ header {
 
 /* Pokemon Button */
 .pokebutton {
-  background-color: rgb(0, 109, 155);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   margin-top: 10px;
+  border-radius: 8px;
+  border: 2px solid;
+  cursor: pointer; /* Adiciona cursor de ponteiro */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+.pokebutton button {
+  /* Estilos para os botões */
+  border: none; /* Remover a borda padrão do botão */
+  outline: none; /* Remover a borda ao focar no botão */
 }
 
 button.pokebutton {
@@ -225,10 +244,6 @@ ul {
   text-align: center;
 }
 
-.shadow {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-}
-
 /* Estilos para telas maiores que 768px */
 @media (min-width: 768px) {
   .modal {
@@ -252,5 +267,20 @@ ul {
   .modal img {
     width: 100%; /* Ajuste conforme necessário */
     max-width: 200px; /* Ajuste conforme necessário */
+  }
+}
+
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+  .modal {
+    width: 90%; /* Ajuste conforme necessário */
+    max-width: 90%; /* Ajuste conforme necessário */
+    max-height: 80%; /* Defina uma altura máxima para evitar que o modal ocupe toda a tela */
+  }
+
+  .modal img {
+    width: 100%; /* Ajuste conforme necessário */
+    height: auto; /* Permita que a altura da imagem seja ajustada automaticamente com base na largura */
+    max-width: 100%; /* Evite que a imagem ultrapasse os limites do modal */
+    max-height: 60vh; /* Defina uma altura máxima para a imagem dentro do modal */
   }
 }

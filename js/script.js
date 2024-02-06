@@ -192,28 +192,71 @@ let pokemonRepository = (function () {
   }
 
   // //Add infos to the list of item
+  // function addListItem(pokemon) {
+  //   let pokemonList = $(".pokedex-list");
+  //   let col = $("<div>").addClass("btn shadow col-12 col-md-3 col-lg-2 mx-2");
+  //   let listItem = $("<div>").addClass("pokebutton");
+  //   // Creates the button element
+  //   let button = createButtonItem(pokemon);
+
+  //   listItem.append(button);
+  //   col.append(listItem);
+  //   pokemonList.append(listItem);
+
+  //   // Load the details of the Pokémon
+  //   loadDetails(pokemon).then(function () {
+  //     //create an element and define its src
+  //     let pokemonImage = $("<img>")
+  //       .attr("src", pokemon.imageUrl)
+  //       .addClass("pokemonImg-list");
+  //     // Add image to the item of the list
+  //     listItem.prepend(pokemonImage);
+  //   });
+
+  //   // Adds event listener to the entire listItem
+  //   listItem.on("click", function () {
+  //     showDetails(pokemon);
+  //   });
+  // }
   function addListItem(pokemon) {
     let pokemonList = $(".pokedex-list");
-    let col = $("<div>").addClass("btn shadow col-12 col-md-3 col-lg-2 mx-2");
+    let col = $("<div>").addClass("btn shadow col-12 col-md-3 col-lg-2");
     let listItem = $("<div>").addClass("pokebutton");
-    // Creates the button element
     let button = createButtonItem(pokemon);
+
+    // Aqui você pode decidir qual variável CSS aplicar com base em algum critério
+    // Por exemplo, com base no índice do Pokémon
+    if (pokemonRepository.getAll().indexOf(pokemon) % 3 === 0) {
+      button.css("background", "var(--btn_gradient_1)");
+      listItem.css({
+        background: "var(--btn_gradient_1)",
+        "border-color": "var(--bordercolor1)", // Cor da borda personalizada para o primeiro estilo
+      });
+    } else if (pokemonRepository.getAll().indexOf(pokemon) % 3 === 1) {
+      button.css("background", "var(--btn_gradient_2)");
+      listItem.css({
+        background: "var(--btn_gradient_2)",
+        "border-color": "var(--bordercolor2)", // Cor da borda personalizada para o segundo estilo
+      });
+    } else {
+      button.css("background", "var(--btn_gradient_3)");
+      listItem.css({
+        background: "var(--btn_gradient_3)",
+        "border-color": "var(--bordercolor3)", // Cor da borda personalizada para o terceiro estilo
+      });
+    }
 
     listItem.append(button);
     col.append(listItem);
     pokemonList.append(listItem);
 
-    // Load the details of the Pokémon
     loadDetails(pokemon).then(function () {
-      //create an element and define its src
       let pokemonImage = $("<img>")
         .attr("src", pokemon.imageUrl)
         .addClass("pokemonImg-list");
-      // Add image to the item of the list
       listItem.prepend(pokemonImage);
     });
 
-    // Adds event listener to the entire listItem
     listItem.on("click", function () {
       showDetails(pokemon);
     });

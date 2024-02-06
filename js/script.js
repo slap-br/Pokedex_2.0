@@ -32,7 +32,7 @@ let pokemonRepository = (function () {
       .html($("<i>").addClass("fa-solid fa-chevron-left"));
     //add the pokemon image to the center of the modal
     let pokemonImage = $("<img>")
-      .addClass("pokemon-image imgNav-item")
+      .addClass("pokemon-img-modal imgNav-item")
       .attr("src", pokemon.imageUrl);
 
     let rightArrowNav = $("<p>")
@@ -206,7 +206,9 @@ let pokemonRepository = (function () {
     // Load the details of the Pokémon
     loadDetails(pokemon).then(function () {
       //create an element and define its src
-      let pokemonImage = $("<img>").attr("src", pokemon.imageUrl);
+      let pokemonImage = $("<img>")
+        .attr("src", pokemon.imageUrl)
+        .addClass("pokemonImg-list");
       // Add image to the item of the list
       listItem.prepend(pokemonImage);
     });

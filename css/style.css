@@ -38,16 +38,13 @@ header {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-
   /* to show it above other content */
   z-index: 999;
-
   /* to allow scrolling if the screen is not high enough*/
   overflow: auto;
-
   /* this is used to center the modal */
   display: grid;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .modal {
@@ -59,8 +56,7 @@ header {
   box-sizing: border-box;
   background: #fffdef;
   width: 500px;
-  height: 410px;
-  text-align: center;
+  height: 550px;
   position: fixed;
   top: 50%;
   left: 50%;
@@ -69,10 +65,6 @@ header {
 
 .imgNav-container {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 100%;
-  margin: 0 auto;
 }
 
 .arrow-left,
@@ -87,7 +79,7 @@ header {
 }
 
 .modal img {
-  width: 450px;
+  width: 250px;
   max-height: auto;
   object-fit: cover;
   margin-top: 25px;
@@ -96,7 +88,7 @@ header {
 .modal .info-container {
   display: flex;
   flex-direction: row;
-  margin-top: 30px;
+  margin-top: 10px;
   align-items: center;
   justify-content: space-around;
   width: 100%;
@@ -178,6 +170,7 @@ header {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin-top: 10px;
 }
 
 button.pokebutton {
@@ -190,22 +183,18 @@ ul {
   list-style: none;
 }
 
-.hidden {
-  display: none;
-}
-
 /* Grid PokemonList */
 .pokedex-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 15px;
   text-align: center;
   max-width: 1200px;
   margin: 50px auto 50px;
+  align-items: stretch;
 }
 
 .pokemon-item {
-  display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
@@ -216,14 +205,21 @@ ul {
   box-sizing: border-box;
 }
 
-.pokemon-image {
-  max-height: 250px;
+.pokemonImg-list {
+  max-height: 200px;
   height: auto;
+  display: block; /* landscape center */
+  margin-top: 20px;
+}
+
+.pokemon-img-modal {
+  max-height: 100px;
+  height: auto;
+  width: 200px;
   object-fit: cover;
   text-align: center;
   display: block; /* landscape center */
 }
-
 .pokedex-grid button {
   width: 100%;
   text-align: center;
@@ -231,4 +227,30 @@ ul {
 
 .shadow {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Estilos para telas maiores que 768px */
+@media (min-width: 768px) {
+  .modal {
+    width: 70%; /* Ajuste conforme necessário */
+    max-width: 600px; /* Ajuste conforme necessário */
+  }
+
+  .modal img {
+    width: 100%; /* Ajuste conforme necessário */
+    max-width: 250px; /* Ajuste conforme necessário */
+  }
+}
+
+/* Estilos para telas menores que 768px (dispositivos móveis, tablets, etc.) */
+@media (max-width: 767px) {
+  .modal {
+    width: 90%; /* Ajuste conforme necessário */
+    max-width: 90%; /* Ajuste conforme necessário */
+  }
+
+  .modal img {
+    width: 100%; /* Ajuste conforme necessário */
+    max-width: 200px; /* Ajuste conforme necessário */
+  }
 }

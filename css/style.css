@@ -93,6 +93,11 @@ header {
   display: block;
 }
 
+.poke-name {
+  color: black;
+  font-size: 64px;
+}
+
 .modal .info-container {
   display: flex;
   flex-direction: row;
@@ -103,11 +108,13 @@ header {
   width: 100%;
   border-radius: 15px 15px 15px 15px;
 }
+
 .poke-col {
   flex: 1 1 auto; /* Faz com que as colunas tenham a mesma largura */
   margin: 0.5rem; /* Margem entre as colunas */
   max-width: calc(33.333% - 1rem); /* Define a largura máxima de cada coluna */
 }
+
 .imgNav-container {
   width: 100%;
   display: flex;
@@ -276,15 +283,19 @@ ul {
 
 @media screen and (orientation: landscape) and (max-width: 1024px) {
   .modal {
-    width: 90%; /* Ajuste conforme necessário */
-    max-width: 90%; /* Ajuste conforme necessário */
-    max-height: 80%; /* Defina uma altura máxima para evitar que o modal ocupe toda a tela */
+    width: 50%; /* Ajuste conforme necessário */
+    max-width: 70%; /* Ajuste conforme necessário */
+    max-height: 70%; /* Defina uma altura máxima para evitar que o modal ocupe toda a tela */
+  }
+
+  h1 {
+    font-size: x-large;
   }
 
   .modal img {
-    width: 100%; /* Ajuste conforme necessário */
+    width: 10%; /* Ajuste conforme necessário */
     height: auto; /* Permita que a altura da imagem seja ajustada automaticamente com base na largura */
-    max-width: 100%; /* Evite que a imagem ultrapasse os limites do modal */
-    max-height: 60vh; /* Defina uma altura máxima para a imagem dentro do modal */
+    max-width: 10%; /* Evite que a imagem ultrapasse os limites do modal */
+    max-height: 10vh; /* Defina uma altura máxima para a imagem dentro do modal */
   }
 }

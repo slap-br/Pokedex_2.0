@@ -24,7 +24,9 @@ let pokemonRepository = (function () {
     closeButtonElement.on("click", hideModal);
 
     //Add the pokemon name to the modal
-    let pokemonTitle = $("<h1>").text(capitalizeFirstLetter(pokemon.name));
+    let pokemonTitle = $("<h3>")
+      .addClass("poketitle")
+      .text(capitalizeFirstLetter(pokemon.name));
     //Add the visual navigation arrows to the modal
     let pokeImgAndNavArrowsContainer = $("<div>").addClass("imgNav-container");
     let leftArrowNav = $("<p>")
@@ -145,8 +147,8 @@ let pokemonRepository = (function () {
     });
   }
 
-  // Adicione um ouvinte de evento para o botão de pesquisa
-  searchButton.on("click", searchPokemon);
+  // start the search
+  searchButton.on("click touchstart", searchPokemon);
 
   //Show loading msg
   function showLoadingMsg() {
@@ -192,32 +194,6 @@ let pokemonRepository = (function () {
   }
 
   // //Add infos to the list of item
-  // function addListItem(pokemon) {
-  //   let pokemonList = $(".pokedex-list");
-  //   let col = $("<div>").addClass("btn shadow col-12 col-md-3 col-lg-2 mx-2");
-  //   let listItem = $("<div>").addClass("pokebutton");
-  //   // Creates the button element
-  //   let button = createButtonItem(pokemon);
-
-  //   listItem.append(button);
-  //   col.append(listItem);
-  //   pokemonList.append(listItem);
-
-  //   // Load the details of the Pokémon
-  //   loadDetails(pokemon).then(function () {
-  //     //create an element and define its src
-  //     let pokemonImage = $("<img>")
-  //       .attr("src", pokemon.imageUrl)
-  //       .addClass("pokemonImg-list");
-  //     // Add image to the item of the list
-  //     listItem.prepend(pokemonImage);
-  //   });
-
-  //   // Adds event listener to the entire listItem
-  //   listItem.on("click", function () {
-  //     showDetails(pokemon);
-  //   });
-  // }
   function addListItem(pokemon) {
     let pokemonList = $(".pokedex-list");
     let col = $("<div>").addClass("poke-col");

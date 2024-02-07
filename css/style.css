@@ -66,48 +66,58 @@ header {
   box-sizing: border-box;
   background: #fffdef;
   width: 500px;
-  height: 550px;
+  height: auto;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.imgNav-container {
-  display: flex;
-}
-
 .arrow-left,
 .arrow-right {
-  flex: 0 0 40px;
+  flex: 1;
   text-align: center;
 }
 
 .imgNav-item {
   flex: 1;
   text-align: center;
+  margin-top: 50px;
 }
 
 .modal img {
-  width: 250px;
-  max-height: auto;
-  object-fit: cover;
-  margin-top: 25px;
+  width: 80%;
+  max-height: 80%;
+  margin: auto;
+  margin-top: 50px;
+  display: block;
 }
 
 .modal .info-container {
   display: flex;
   flex-direction: row;
   margin-top: 10px;
+  margin-bottom: 0;
   align-items: center;
   justify-content: space-around;
   width: 100%;
   border-radius: 15px 15px 15px 15px;
 }
+.poke-col {
+  flex: 1 1 auto; /* Faz com que as colunas tenham a mesma largura */
+  margin: 0.5rem; /* Margem entre as colunas */
+  max-width: calc(33.333% - 1rem); /* Define a largura máxima de cada coluna */
+}
+.imgNav-container {
+  width: 100%;
+  display: flex;
+  align-items: center; /* Alinha verticalmente as setas */
+  justify-content: center; /* Alinha horizontalmente as setas */
+}
 
 .modal .info-item {
   width: 200px;
-  height: 170px;
+  height: 150px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -146,11 +156,6 @@ header {
   gap: 0;
   margin: 0;
   text-align: center;
-}
-
-.modal .info-item strong {
-  display: block;
-  margin-bottom: 5px;
 }
 
 .modal-close {
@@ -227,18 +232,17 @@ ul {
 .pokemonImg-list {
   max-height: 200px;
   height: auto;
-  display: block; /* landscape center */
+  display: block;
   margin-top: 20px;
 }
 
 .pokemon-img-modal {
-  max-height: 100px;
-  height: auto;
-  width: 200px;
+  max-height: 150px;
   object-fit: cover;
   text-align: center;
-  display: block; /* landscape center */
+  display: block;
 }
+
 .pokedex-grid button {
   width: 100%;
   text-align: center;

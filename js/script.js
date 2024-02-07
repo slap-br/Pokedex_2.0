@@ -220,7 +220,7 @@ let pokemonRepository = (function () {
   // }
   function addListItem(pokemon) {
     let pokemonList = $(".pokedex-list");
-    let col = $("<div>").addClass("btn shadow col-12 col-md-3 col-lg-2");
+    let col = $("<div>").addClass("poke-col");
     let listItem = $("<div>").addClass("pokebutton");
     let button = createButtonItem(pokemon);
 

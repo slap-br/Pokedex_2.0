@@ -125,8 +125,12 @@ let pokemonRepository = (function () {
   }
 
   // Função de pesquisa
-  function searchPokemon() {
-    // convert the result from the user to lowercase
+  function searchPokemon(event) {
+    event.preventDefault();
+    hideModalButton();
+    hideLoadedMsg();
+
+    // Restante do código de pesquisa permanece o mesmo
     let searchTerm = searchInput.val().toLowerCase();
     //filter the list based on the search terms
     let filteredList = pokemonRepository.getAll().filter(function (pokemon) {
@@ -145,9 +149,10 @@ let pokemonRepository = (function () {
     filteredList.forEach(function (pokemon) {
       pokemonRepository.addListItem(pokemon);
     });
+    hideLoadedMsg();
   }
 
-  // start the search
+  // start search
   searchButton.on("click touchstart", searchPokemon);
 
   //Show loading msg
@@ -160,10 +165,7 @@ let pokemonRepository = (function () {
 
   //Hide loading msg
   function hideLoadedMsg() {
-    loadingMsg;
-    if (loadingMsg.length) {
-      loadingMsg.remove();
-    }
+    $(".loadingMsg").remove(); // Remove todos os elementos com a classe .loadingMsg
   }
 
   // this function adds the pokemon to the array of pokemons
@@ -261,12 +263,12 @@ let pokemonRepository = (function () {
         add(pokemon);
       });
     } catch (e) {
-      hideLoadedMsg();
       console.log(e);
     } finally {
       hideLoadedMsg();
     }
   }
+
   //Load all the details required for the user in the app from the API
   async function loadDetails(item) {
     let url = item.detailsUrl;
@@ -292,8 +294,13 @@ let pokemonRepository = (function () {
     currentPokemonIndex = pokemonRepository.getAll().indexOf(pokemon);
     loadDetails(pokemon).then(function () {
       console.log(pokemon);
+      hideModalButton();
       showModal(pokemon);
     });
+  }
+
+  function hideModalButton() {
+    showModalButton.hide();
   }
 
   //Arrow Navigation function
@@ -355,6 +362,7 @@ let pokemonRepository = (function () {
     showDetails,
     loadList,
     loadDetails,
+    hideLoadedMsg,
   };
 })();
 
@@ -362,4 +370,5 @@ pokemonRepository.loadList().then(function () {
   pokemonRepository.getAll().forEach(function (pokemon) {
     pokemonRepository.addListItem(pokemon);
   });
+  pokemonRepository.hideLoadedMsg(); // Chame a função usando a notação de ponto a partir do objeto retornado
 });
